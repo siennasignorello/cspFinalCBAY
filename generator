@@ -1,0 +1,87 @@
+# Chloe Behen and Audrey Young
+# Create Task
+# College Generator
+# 2/29/24
+
+# Initialization
+import csv
+
+college_csv_path = "C:\\Users\\cbehen\\Downloads\\collegedata.csv"
+college_name_list = []
+college_sat_list = []
+college_location_list = []
+college_pubpriv_list = []
+
+
+# Functions
+def collegegenerator():
+    print("Welcome to our college generator!")
+    score = input("What is your SAT score? ")
+    location = input("What region do you want to go to school in? (East, West, Midwest, South) ")
+    pubpriv = input("Do you want to go to a Public or Private school? ")
+
+    def translatescore():
+        if int(score) >= 1420:
+            return "High"
+        if int(score) < 1420:
+            return "Low"
+
+    def get_score(satscore):
+        if satscore == "High":
+            return "High"
+        if satscore == "Low":
+            return "Low"
+
+    def get_location(region):
+        if region == "East":
+            return "East"
+        if region == "West":
+            return "West"
+        if region == "Midwest":
+            return "Midwest"
+        if region == "South":
+            return "South"
+
+    def get_pubpriv(publicprivate):
+        if publicprivate == "Public":
+            return "Public"
+        if publicprivate == "Private":
+            return "Private"
+
+    with open(college_csv_path, "r") as file:
+        # accessing the csv file and storing it
+        reader = csv.reader(file)
+        for row in reader:
+            # pulling every value from every row in column index 0
+            college_name_list.append(row[0])
+            # pulling every value from every row in column index 1
+            college_sat_list.append(row[1])
+            # pulling every value from every row in column index 2
+            college_location_list.append(row[2])
+            # pulling every image from every row in column index 3
+            college_pubpriv_list.append(row[3])
+
+    # empty lists
+    filtered_list = []
+    filtered_sat_list = []
+    filtered_location_list = []
+    filtered_pubpriv_list = []
+    # step 2; looping through a list
+    for i in range(len(college_name_list)):
+        # pull a college and sat from the list
+        college = college_name_list[i]
+        satscore = college_sat_list[i]
+        region = college_location_list[i]
+        publicprivate = college_pubpriv_list[i]
+
+        if score == get_score(satscore):
+            filtered_list.append(college)
+
+        # look for a certain size and add to filtered list
+        if (score == get_score(satscore)) and (location == get_location(region)) and (pubpriv == get_pubpriv(publicprivate)):
+            filtered_list.append(college)
+    print(filtered_list)
+
+
+# Main
+collegegenerator()
